@@ -203,7 +203,7 @@
       <div class="row">
         <div class="pill">
           <span>📝</span>
-          <span><strong>Inscription</strong> — indique la prestation et le montant (plafond : <strong id="plafondTxt"></strong>)</span>
+          <span><strong>Inscription</strong> — indique la prestation et le montant payé</span>
         </div>
         <div class="mini">Les inscriptions hors période sont bloquées automatiquement.</div>
       </div>
@@ -224,13 +224,13 @@
 
         <div class="grid" style="margin-top:12px;">
           <div>
-            <label for="prestation">Prestation souhaitée *</label>
+            <label for="prestation">Prestation *</label>
             <input id="prestation" name="prestation" required maxlength="80" placeholder="Ex : Balayage, Coupe, Brushing..." />
           </div>
           <div>
-            <label for="montant">Montant (€) *</label>
+            <label for="montant">Montant payé (€) *</label>
             <input id="montant" name="montant" required inputmode="decimal" placeholder="Ex : 50 ou 50,00" />
-            <div class="mini">Montant en euros — il sera plafonné automatiquement si &gt; plafond.</div>
+            <div class="mini">Info uniquement (statistiques). Exemple : 50 ou 50,00.</div>
           </div>
         </div>
 
@@ -250,7 +250,7 @@
       </details>
 
       <div class="footer">
-        Astuce : une fois ton lien de site final, on peut aussi ajuster exactement les couleurs/typo.
+        Astuce : si tu veux, je peux aussi ajuster encore plus pour coller à la charte exacte du site.
       </div>
     </div>
   </div>
@@ -258,14 +258,11 @@
 <script>
 /** ========= À MODIFIER ========= */
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzv3_4rsKhw0kHu7UaLfdih_vs8RxMwuI97TuBYhHaH_evhBAiqFtxnaISzLVWOnozN/exec"; // URL du déploiement Apps Script (Web App)
-const BRAND_URL  = "https://www.ericdimartino.com/"; // ton site
+const BRAND_URL  = "https://www.ericdimartino.com/";
 const ORGANISATEUR = "Eric Di Martino (ou nom du salon/entreprise)";
 const CONTACT_GAGNANT = "Instagram @... / téléphone ... / email ...";
 
-// Plafond anti-abus (important)
-const PLAFOND_EURO = 100; // ex: 100 = max 100€
-
-// Dates (Europe/Paris)
+/* Dates (Europe/Paris) */
 const START_DATE = "2026-02-17T00:00:00+01:00"; // début jeu concours
 const END_DATE   = "2026-03-10T23:59:59+01:00"; // fin participation
 const DRAW_DATE  = "2026-03-10T18:00:00+01:00"; // heure indicative du tirage
@@ -292,7 +289,6 @@ function setAutoFields(){
   $("drawTxt").textContent = fmtDateFR(DRAW_DATE);
   $("dateRangeTxt").textContent = `${fmtDateFR(START_DATE)} → ${fmtDateFR(END_DATE)}`;
   $("campaignBadge").textContent = `Jeu concours • ${fmtDateFR(START_DATE)} → ${fmtDateFR(END_DATE)}`;
-  $("plafondTxt").textContent = `${PLAFOND_EURO}€`;
 }
 
 function setRules(){
@@ -309,21 +305,17 @@ function setRules(){
     Toute participation incomplète ou frauduleuse pourra être annulée.</p>
 
     <h3>4) Comment participer</h3>
-    <p>Remplir et valider le formulaire d’inscription sur cette page en indiquant une prestation et un montant.</p>
+    <p>Remplir et valider le formulaire d’inscription sur cette page en indiquant la prestation et le montant payé (info).</p>
 
-    <h3>5) Lot / gain</h3>
-    <p>Le gagnant remporte la prestation indiquée lors de l’inscription, dans la limite d’un plafond de <strong>${1000}€</strong>.
-    Au-delà, la prise en charge est limitée au plafond.</p>
-
-    <h3>6) Désignation du gagnant</h3>
+    <h3>5) Désignation du gagnant</h3>
     <p>Le gagnant est tiré au sort parmi les participations valides, puis contacté via : <strong>${CONTACT_GAGNANT}</strong>.
     Sans réponse sous 7 jours, un nouveau tirage pourra être effectué.</p>
 
-    <h3>7) Données personnelles</h3>
+    <h3>6) Données personnelles</h3>
     <p>Les données collectées (nom, prénom, prestation, montant, date) servent uniquement à gérer le jeu concours.
     Tu peux demander leur suppression en contactant l’organisateur.</p>
 
-    <h3>8) Acceptation</h3>
+    <h3>7) Acceptation</h3>
     <p>La participation implique l’acceptation du présent règlement.</p>
   `;
   $("rulesBox").innerHTML = rules;
@@ -392,14 +384,11 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const montantRaw = $("montant").value;
-    const montantNum = normalizeEuroAmount(montantRaw);
+    const montantNum = normalizeEuroAmount($("montant").value);
     if(!montantNum){
       showMsg("err", "❌ Montant invalide. Exemple : 50 ou 50,00");
       return;
     }
-
-    const montantPlafonne = Math.min(montantNum, PLAFOND_EURO).toFixed(2);
 
     $("submitBtn").disabled = true;
     showMsg("ok", "Envoi en cours…");
@@ -408,7 +397,7 @@ document.addEventListener("DOMContentLoaded", () => {
       nom: $("nom").value.trim(),
       prenom: $("prenom").value.trim(),
       prestation: $("prestation").value.trim(),
-      montant: montantPlafonne,
+      montant: montantNum.toFixed(2),
       dateInscription: $("dateInscription").value,
       source: BRAND_URL
     };
@@ -432,4 +421,5 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 </body>
 </html>
+
 
