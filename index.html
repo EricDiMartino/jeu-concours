@@ -4,51 +4,186 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Jeu concours</title>
+
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
     :root{
-      --bg:#0b0b0f; --card:#12121a; --txt:#f3f3f7; --muted:#b7b7c6;
-      --line:#2a2a3a; --accent:#7c5cff; --ok:#2ecc71; --err:#ff5c7a;
-      --radius:16px;
-      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      --bg:#f7f5f2;
+      --card:#ffffff;
+      --txt:#0f0f12;
+      --muted:#5b5b66;
+      --line:#e7e3dc;
+      --accent:#b08b57;     /* doré */
+      --accent2:#111114;    /* noir */
+      --ok:#1f9d63;
+      --err:#c0392b;
+
+      --radius:18px;
+      --font: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      --title: "Playfair Display", serif;
     }
-    body{margin:0; font-family:var(--font); background:radial-gradient(1200px 600px at 10% 0%, #1a1240 0%, var(--bg) 50%); color:var(--txt);}
-    .wrap{max-width:820px; margin:0 auto; padding:28px 16px 60px;}
-    .top{display:flex; gap:12px; justify-content:space-between; align-items:center; flex-wrap:wrap;}
-    .badge{font-size:12px; padding:6px 10px; border:1px solid var(--line); border-radius:999px; color:var(--muted); background:rgba(255,255,255,0.03);}
-    .card{margin-top:18px; background:rgba(18,18,26,0.92); border:1px solid var(--line); border-radius:var(--radius); padding:18px;}
-    h1{margin:10px 0 6px; font-size:26px;}
-    p{margin:0 0 12px; color:var(--muted); line-height:1.5;}
-    .grid{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:10px;}
-    @media (max-width:720px){ .grid{grid-template-columns:1fr;} }
-    label{display:block; font-size:13px; color:var(--muted); margin:0 0 6px;}
+
+    /* ✅ Fix débordement */
+    *, *::before, *::after{ box-sizing:border-box; }
+    html, body{ width:100%; overflow-x:hidden; }
+
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--txt);
+      background:
+        radial-gradient(900px 420px at 10% 0%, rgba(176,139,87,0.14) 0%, rgba(0,0,0,0) 55%),
+        radial-gradient(900px 420px at 90% 10%, rgba(17,17,20,0.10) 0%, rgba(0,0,0,0) 60%),
+        var(--bg);
+    }
+
+    .wrap{
+      max-width:900px;
+      width:100%;
+      margin:0 auto;
+      padding:28px 16px 60px;
+    }
+
+    .top{
+      display:flex;
+      gap:12px;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .badge{
+      font-size:12px;
+      padding:7px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      color:var(--muted);
+      background:rgba(255,255,255,0.75);
+      backdrop-filter: blur(6px);
+    }
+
+    h1{
+      margin:14px 0 6px;
+      font-family:var(--title);
+      font-size:34px;
+      letter-spacing:0.2px;
+    }
+
+    p{
+      margin:0 0 12px;
+      color:var(--muted);
+      line-height:1.55;
+    }
+
+    .card{
+      margin-top:18px;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow: 0 10px 30px rgba(17,17,20,0.06);
+    }
+
+    .pill{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding:10px 12px;
+      border:1px dashed rgba(176,139,87,0.55);
+      border-radius:14px;
+      background: rgba(176,139,87,0.06);
+      color: var(--muted);
+    }
+
+    .hr{ height:1px; background:var(--line); margin:16px 0; }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin-top:10px;
+      width:100%;
+    }
+    @media (max-width:720px){
+      .grid{ grid-template-columns:1fr; }
+      h1{ font-size:30px; }
+    }
+
+    label{
+      display:block;
+      font-size:13px;
+      color:var(--muted);
+      margin:0 0 6px;
+    }
+
     input{
-      width:100%; padding:12px 12px; border-radius:12px; border:1px solid var(--line);
-      background:rgba(255,255,255,0.04); color:var(--txt); outline:none;
+      width:100%;
+      max-width:100%;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--txt);
+      outline:none;
     }
-    input:focus{border-color:rgba(124,92,255,0.8); box-shadow:0 0 0 3px rgba(124,92,255,0.15);}
-    .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between; margin-top:14px;}
+
+    input:focus{
+      border-color: rgba(176,139,87,0.9);
+      box-shadow: 0 0 0 3px rgba(176,139,87,0.18);
+    }
+
+    .row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      margin-top:14px;
+    }
+
     .btn{
-      appearance:none; border:0; cursor:pointer; padding:12px 16px; border-radius:14px;
-      background:linear-gradient(135deg, var(--accent), #4dd8ff);
-      color:#0b0b0f; font-weight:700;
+      appearance:none;
+      border:1px solid var(--accent2);
+      cursor:pointer;
+      padding:12px 16px;
+      border-radius:14px;
+      background: var(--accent2);
+      color:#fff;
+      font-weight:700;
       min-width:190px;
     }
-    .btn:disabled{opacity:0.5; cursor:not-allowed;}
-    .mini{font-size:12px; color:var(--muted);}
-    .pill{
-      display:inline-flex; gap:8px; align-items:center; padding:10px 12px;
-      border:1px dashed var(--line); border-radius:14px; background:rgba(255,255,255,0.03);
+    .btn:hover{ opacity:0.92; }
+    .btn:disabled{ opacity:0.5; cursor:not-allowed; }
+
+    .mini{ font-size:12px; color:var(--muted); }
+
+    .msg{
+      margin-top:12px;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,0.6);
       color:var(--muted);
     }
-    .msg{margin-top:12px; padding:12px 12px; border-radius:14px; border:1px solid var(--line); background:rgba(255,255,255,0.03); color:var(--muted);}
-    .msg.ok{border-color:rgba(46,204,113,0.5); color:#c9f7d7;}
-    .msg.err{border-color:rgba(255,92,122,0.5); color:#ffd0d8;}
-    details{margin-top:16px;}
-    summary{cursor:pointer; color:var(--txt); font-weight:700;}
-    .rules{margin-top:10px; color:var(--muted); line-height:1.6;}
-    .rules h3{margin:14px 0 6px; color:var(--txt);}
-    .footer{margin-top:18px; color:var(--muted); font-size:12px;}
-    .hr{height:1px; background:var(--line); margin:16px 0;}
+    .msg.ok{ border-color:rgba(31,157,99,0.45); color:#0e5132; background:rgba(31,157,99,0.08); }
+    .msg.err{ border-color:rgba(192,57,43,0.45); color:#5a1a14; background:rgba(192,57,43,0.08); }
+
+    details{ margin-top:16px; }
+    summary{ cursor:pointer; color:var(--txt); font-weight:700; }
+
+    .rules{
+      margin-top:10px;
+      color:var(--muted);
+      line-height:1.6;
+    }
+    .rules h3{ margin:14px 0 6px; color:var(--txt); font-family:var(--title); }
+
+    .footer{
+      margin-top:18px;
+      color:var(--muted);
+      font-size:12px;
+    }
   </style>
 </head>
 
@@ -95,18 +230,15 @@
           <div>
             <label for="montant">Montant (€) *</label>
             <input id="montant" name="montant" required inputmode="decimal" placeholder="Ex : 50 ou 50,00" />
-            <div class="mini">Montant en euros — il sera plafonné automatiquement si > plafond.</div>
+            <div class="mini">Montant en euros — il sera plafonné automatiquement si &gt; plafond.</div>
           </div>
         </div>
 
-        <!-- Date auto -->
         <input type="hidden" id="dateInscription" name="dateInscription" />
 
         <div class="row">
           <button class="btn" id="submitBtn" type="submit">Je participe</button>
-          <div class="mini">
-            En participant, tu acceptes le règlement ci-dessous.
-          </div>
+          <div class="mini">En participant, tu acceptes le règlement ci-dessous.</div>
         </div>
 
         <div id="msg" class="msg" style="display:none;"></div>
@@ -118,7 +250,7 @@
       </details>
 
       <div class="footer">
-        Pour coller à ta charte graphique, tu peux me donner le lien de ton site et je te refais les couleurs/typo.
+        Astuce : une fois ton lien de site final, on peut aussi ajuster exactement les couleurs/typo.
       </div>
     </div>
   </div>
@@ -126,13 +258,12 @@
 <script>
 /** ========= À MODIFIER ========= */
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzv3_4rsKhw0kHu7UaLfdih_vs8RxMwuI97TuBYhHaH_evhBAiqFtxnaISzLVWOnozN/exec"; // URL du déploiement Apps Script (Web App)
-const BRAND_URL  = "https://www.ericdimartino.com/";           // Ton site (optionnel)
-const ORGANISATEUR = "Eric Di Martino"; // Remplace
+const BRAND_URL  = "https://www.ericdimartino.com/"; // ton site
+const ORGANISATEUR = "Eric Di Martino (ou nom du salon/entreprise)";
+const CONTACT_GAGNANT = "Instagram @... / téléphone ... / email ...";
 
-// Plafond max autorisé pour éviter les abus (important)
-const PLAFOND_EURO = 1000; // ex: 1000 = max 1000€
-
-const CONTACT_GAGNANT = "Instagram / téléphone / email (à préciser)"; // texte affiché dans le règlement
+// Plafond anti-abus (important)
+const PLAFOND_EURO = 100; // ex: 100 = max 100€
 
 // Dates (Europe/Paris)
 const START_DATE = "2026-02-17T00:00:00+01:00"; // début jeu concours
@@ -181,7 +312,7 @@ function setRules(){
     <p>Remplir et valider le formulaire d’inscription sur cette page en indiquant une prestation et un montant.</p>
 
     <h3>5) Lot / gain</h3>
-    <p>Le gagnant remporte la prestation indiquée lors de l’inscription, dans la limite d’un plafond de <strong>${PLAFOND_EURO}€</strong>.
+    <p>Le gagnant remporte la prestation indiquée lors de l’inscription, dans la limite d’un plafond de <strong>${1000}€</strong>.
     Au-delà, la prise en charge est limitée au plafond.</p>
 
     <h3>6) Désignation du gagnant</h3>
@@ -252,7 +383,7 @@ document.addEventListener("DOMContentLoaded", () => {
   $("form").addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    if(SCRIPT_URL.includes("COLLE_ICI")){
+    if(SCRIPT_URL.includes("https://script.google.com/macros/s/AKfycbzv3_4rsKhw0kHu7UaLfdih_vs8RxMwuI97TuBYhHaH_evhBAiqFtxnaISzLVWOnozN/exec")){
       showMsg("err", "⚠️ Tu n’as pas collé l’URL Apps Script dans SCRIPT_URL (en bas du fichier).");
       return;
     }
@@ -268,7 +399,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Plafond anti-abus
     const montantPlafonne = Math.min(montantNum, PLAFOND_EURO).toFixed(2);
 
     $("submitBtn").disabled = true;
