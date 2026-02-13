@@ -14,8 +14,8 @@
       --txt:#0f0f12;
       --muted:#5b5b66;
       --line:#e7e3dc;
-      --accent:#b08b57;     /* doré */
-      --accent2:#111114;    /* noir */
+      --accent:#b08b57;
+      --accent2:#111114;
       --ok:#1f9d63;
       --err:#c0392b;
 
@@ -24,7 +24,6 @@
       --title: "Playfair Display", serif;
     }
 
-    /* ✅ Fix débordement */
     *, *::before, *::after{ box-sizing:border-box; }
     html, body{ width:100%; overflow-x:hidden; }
 
@@ -38,120 +37,66 @@
         var(--bg);
     }
 
-    .wrap{
-      max-width:900px;
-      width:100%;
-      margin:0 auto;
-      padding:28px 16px 60px;
-    }
+    .wrap{ max-width:900px; width:100%; margin:0 auto; padding:28px 16px 60px; }
 
-    .top{
-      display:flex;
-      gap:12px;
-      justify-content:space-between;
-      align-items:center;
-      flex-wrap:wrap;
-    }
+    .top{ display:flex; gap:12px; justify-content:space-between; align-items:center; flex-wrap:wrap; }
 
     .badge{
-      font-size:12px;
-      padding:7px 12px;
-      border:1px solid var(--line);
-      border-radius:999px;
-      color:var(--muted);
-      background:rgba(255,255,255,0.75);
-      backdrop-filter: blur(6px);
+      font-size:12px; padding:7px 12px; border:1px solid var(--line); border-radius:999px;
+      color:var(--muted); background:rgba(255,255,255,0.75); backdrop-filter: blur(6px);
     }
 
-    h1{
-      margin:14px 0 6px;
-      font-family:var(--title);
-      font-size:34px;
-      letter-spacing:0.2px;
-    }
+    h1{ margin:14px 0 6px; font-family:var(--title); font-size:34px; letter-spacing:0.2px; }
 
-    p{
-      margin:0 0 12px;
-      color:var(--muted);
-      line-height:1.55;
-    }
+    p{ margin:0 0 12px; color:var(--muted); line-height:1.55; }
 
     .card{
-      margin-top:18px;
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      padding:18px;
-      box-shadow: 0 10px 30px rgba(17,17,20,0.06);
+      margin-top:18px; background:var(--card); border:1px solid var(--line);
+      border-radius:var(--radius); padding:18px; box-shadow: 0 10px 30px rgba(17,17,20,0.06);
     }
 
     .pill{
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
-      padding:10px 12px;
-      border:1px dashed rgba(176,139,87,0.55);
-      border-radius:14px;
-      background: rgba(176,139,87,0.06);
-      color: var(--muted);
+      display:inline-flex; gap:8px; align-items:center; padding:10px 12px;
+      border:1px dashed rgba(176,139,87,0.55); border-radius:14px;
+      background: rgba(176,139,87,0.06); color: var(--muted);
     }
 
     .hr{ height:1px; background:var(--line); margin:16px 0; }
 
     .grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-      margin-top:10px;
-      width:100%;
+      display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:10px; width:100%;
     }
     @media (max-width:720px){
       .grid{ grid-template-columns:1fr; }
       h1{ font-size:30px; }
     }
 
-    label{
-      display:block;
-      font-size:13px;
-      color:var(--muted);
-      margin:0 0 6px;
-    }
+    label{ display:block; font-size:13px; color:var(--muted); margin:0 0 6px; }
 
-    input{
-      width:100%;
-      max-width:100%;
+    input, select{
+      width:100%; max-width:100%;
       padding:12px 12px;
       border-radius:14px;
       border:1px solid var(--line);
       background:#fff;
       color:var(--txt);
       outline:none;
+      appearance:none;
     }
 
-    input:focus{
+    input:focus, select:focus{
       border-color: rgba(176,139,87,0.9);
       box-shadow: 0 0 0 3px rgba(176,139,87,0.18);
     }
 
     .row{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-      margin-top:14px;
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between; margin-top:14px;
     }
 
     .btn{
-      appearance:none;
-      border:1px solid var(--accent2);
-      cursor:pointer;
-      padding:12px 16px;
-      border-radius:14px;
-      background: var(--accent2);
-      color:#fff;
-      font-weight:700;
-      min-width:190px;
+      appearance:none; border:1px solid var(--accent2); cursor:pointer;
+      padding:12px 16px; border-radius:14px;
+      background: var(--accent2); color:#fff; font-weight:700; min-width:190px;
     }
     .btn:hover{ opacity:0.92; }
     .btn:disabled{ opacity:0.5; cursor:not-allowed; }
@@ -159,12 +104,8 @@
     .mini{ font-size:12px; color:var(--muted); }
 
     .msg{
-      margin-top:12px;
-      padding:12px 12px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,0.6);
-      color:var(--muted);
+      margin-top:12px; padding:12px 12px; border-radius:14px; border:1px solid var(--line);
+      background:rgba(255,255,255,0.6); color:var(--muted);
     }
     .msg.ok{ border-color:rgba(31,157,99,0.45); color:#0e5132; background:rgba(31,157,99,0.08); }
     .msg.err{ border-color:rgba(192,57,43,0.45); color:#5a1a14; background:rgba(192,57,43,0.08); }
@@ -172,18 +113,24 @@
     details{ margin-top:16px; }
     summary{ cursor:pointer; color:var(--txt); font-weight:700; }
 
-    .rules{
-      margin-top:10px;
-      color:var(--muted);
-      line-height:1.6;
-    }
+    .rules{ margin-top:10px; color:var(--muted); line-height:1.6; }
     .rules h3{ margin:14px 0 6px; color:var(--txt); font-family:var(--title); }
 
-    .footer{
-      margin-top:18px;
+    .footer{ margin-top:18px; color:var(--muted); font-size:12px; }
+
+    /* petit chevron pour le select */
+    .selectWrap{ position:relative; }
+    .selectWrap:after{
+      content:"▾";
+      position:absolute;
+      right:12px;
+      top:38px;
       color:var(--muted);
-      font-size:12px;
+      pointer-events:none;
+      font-size:14px;
     }
+
+    .hidden{ display:none !important; }
   </style>
 </head>
 
@@ -203,7 +150,7 @@
       <div class="row">
         <div class="pill">
           <span>📝</span>
-          <span><strong>Inscription</strong> — indique la prestation et le montant payé</span>
+          <span><strong>Inscription</strong> — sélectionne la prestation + indique le montant payé</span>
         </div>
         <div class="mini">Les inscriptions hors période sont bloquées automatiquement.</div>
       </div>
@@ -223,14 +170,43 @@
         </div>
 
         <div class="grid" style="margin-top:12px;">
-          <div>
+          <div class="selectWrap">
             <label for="prestation">Prestation *</label>
-            <input id="prestation" name="prestation" required maxlength="80" placeholder="Ex : Balayage, Coupe, Brushing..." />
+            <select id="prestation" name="prestation" required>
+              <option value="" selected disabled>Choisir une prestation</option>
+              <option value="Coupe homme">Coupe homme</option>
+              <option value="Coupe femme">Coupe femme</option>
+              <option value="Couleur">Couleur</option>
+              <option value="Brushing">Brushing</option>
+              <option value="Balayage">Balayage</option>
+              <option value="Autre">Autre</option>
+            </select>
           </div>
+
           <div>
             <label for="montant">Montant payé (€) *</label>
             <input id="montant" name="montant" required inputmode="decimal" placeholder="Ex : 50 ou 50,00" />
-            <div class="mini">Info uniquement (statistiques). Exemple : 50 ou 50,00.</div>
+            <div class="mini">Info uniquement (statistiques).</div>
+          </div>
+        </div>
+
+        <div id="autreWrap" class="grid hidden" style="margin-top:12px;">
+          <div>
+            <label for="autrePrestation">Si “Autre”, précise *</label>
+            <input id="autrePrestation" name="autrePrestation" maxlength="80" placeholder="Ex : Soin, patine, etc." />
+          </div>
+          <div></div>
+        </div>
+
+        <div class="grid" style="margin-top:12px;">
+          <div>
+            <label for="email">Email *</label>
+            <input id="email" name="email" type="email" required placeholder="exemple@email.com" />
+          </div>
+          <div>
+            <label for="telephone">Téléphone *</label>
+            <input id="telephone" name="telephone" required inputmode="tel" placeholder="06..." />
+            <div class="mini">Utilisé uniquement pour contacter le gagnant.</div>
           </div>
         </div>
 
@@ -257,15 +233,13 @@
 
 <script>
 /** ========= À MODIFIER ========= */
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzrYjYnOXBr_FdP4FJqlgBBjfY75v0ADvEq4vNxKWYLGso7DDLHoEsEuJqhMDlCSOi8/exec"; // URL du déploiement Apps Script (Web App)
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzrYjYnOXBr_FdP4FJqlgBBjfY75v0ADvEq4vNxKWYLGso7DDLHoEsEuJqhMDlCSOi8/exec";
 const BRAND_URL  = "https://www.ericdimartino.com/";
 const ORGANISATEUR = "Eric Di Martino (ou nom du salon/entreprise)";
-const CONTACT_GAGNANT = "Instagram @... / téléphone ... / email ...";
-
 /* Dates (Europe/Paris) */
-const START_DATE = "2026-02-12T00:00:00+01:00"; // début jeu concours
-const END_DATE   = "2026-03-10T23:59:59+01:00"; // fin participation
-const DRAW_DATE  = "2026-03-10T18:00:00+01:00"; // heure indicative du tirage
+const START_DATE = "2026-02-12T00:00:00+01:00";
+const END_DATE   = "2026-03-10T23:59:59+01:00";
+const DRAW_DATE  = "2026-03-10T18:00:00+01:00";
 /** ============================== */
 
 const $ = (id) => document.getElementById(id);
@@ -301,18 +275,18 @@ function setRules(){
     Tirage au sort le <strong>${fmtDateFR(DRAW_DATE)}</strong>.</p>
 
     <h3>3) Conditions de participation</h3>
-    <p>Jeu gratuit, sans obligation d’achat. Une participation par personne (nom + prénom).
+    <p>Jeu gratuit, sans obligation d’achat. Une participation par personne.
     Toute participation incomplète ou frauduleuse pourra être annulée.</p>
 
     <h3>4) Comment participer</h3>
-    <p>Remplir et valider le formulaire d’inscription sur cette page en indiquant la prestation et le montant payé (info).</p>
+    <p>Remplir et valider le formulaire d’inscription sur cette page.</p>
 
-    <h3>5) Désignation du gagnant</h3>
-    <p>Le gagnant est tiré au sort parmi les participations valides, puis contacté via : <strong>${CONTACT_GAGNANT}</strong>.
-    Sans réponse sous 7 jours, un nouveau tirage pourra être effectué.</p>
+    <h3>5) Gagnant & contact</h3>
+    <p>À la fin du jeu concours, un gagnant sera tiré au sort parmi les participations valides.
+    Il/elle sera contacté(e) par <strong>email</strong> ou <strong>téléphone</strong>.</p>
 
     <h3>6) Données personnelles</h3>
-    <p>Les données collectées (nom, prénom, prestation, montant, date) servent uniquement à gérer le jeu concours.
+    <p>Les données collectées (nom, prénom, prestation, montant, email, téléphone, date) servent uniquement à gérer le jeu concours.
     Tu peux demander leur suppression en contactant l’organisateur.</p>
 
     <h3>7) Acceptation</h3>
@@ -350,6 +324,7 @@ function normalizeEuroAmount(raw){
   return n;
 }
 
+/* ✅ anti-CORS preflight */
 async function submitToSheets(payload){
   const res = await fetch(SCRIPT_URL, {
     method: "POST",
@@ -362,12 +337,26 @@ async function submitToSheets(payload){
   catch { return { ok:false, error:"Réponse non JSON", raw: txt }; }
 }
 
-
 function showMsg(type, text){
   const msg = $("msg");
   msg.style.display = "block";
   msg.className = type === "ok" ? "msg ok" : "msg err";
   msg.textContent = text;
+}
+
+function toggleAutre(){
+  const val = $("prestation").value;
+  const wrap = $("autreWrap");
+  const input = $("autrePrestation");
+
+  if(val === "Autre"){
+    wrap.classList.remove("hidden");
+    input.required = true;
+  } else {
+    wrap.classList.add("hidden");
+    input.required = false;
+    input.value = "";
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -376,11 +365,14 @@ document.addEventListener("DOMContentLoaded", () => {
   lockIfOutOfWindow();
   setInterval(lockIfOutOfWindow, 10_000);
 
+  $("prestation").addEventListener("change", toggleAutre);
+  toggleAutre();
+
   $("form").addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    if(SCRIPT_URL.includes("COLLE_ICI_TON_URL_APPS_SCRIPT")){
-      showMsg("err", "⚠️ Tu n’as pas collé l’URL Apps Script dans SCRIPT_URL (en bas du fichier).");
+    if(!SCRIPT_URL){
+      showMsg("err", "⚠️ L’URL Apps Script n’est pas renseignée.");
       return;
     }
     if(!inWindowNow()){
@@ -394,14 +386,24 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    const prestationVal = $("prestation").value;
+    const autreVal = $("autrePrestation").value.trim();
+    if(prestationVal === "Autre" && !autreVal){
+      showMsg("err", "❌ Merci de préciser la prestation (choix “Autre”).");
+      return;
+    }
+
     $("submitBtn").disabled = true;
     showMsg("ok", "Envoi en cours…");
 
     const payload = {
       nom: $("nom").value.trim(),
       prenom: $("prenom").value.trim(),
-      prestation: $("prestation").value.trim(),
+      prestation: prestationVal,
+      autrePrestation: (prestationVal === "Autre") ? autreVal : "",
       montant: montantNum.toFixed(2),
+      email: $("email").value.trim(),
+      telephone: $("telephone").value.trim(),
       dateInscription: $("dateInscription").value,
       source: BRAND_URL
     };
@@ -411,6 +413,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if(r && r.ok){
         $("form").reset();
         setAutoFields();
+        toggleAutre();
         showMsg("ok", "✅ Inscription enregistrée ! Bonne chance 🍀");
       } else {
         showMsg("err", "❌ Impossible d’enregistrer. Vérifie le déploiement Apps Script (Web App) et les accès.");
@@ -425,12 +428,3 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
