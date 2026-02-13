@@ -353,11 +353,15 @@ function normalizeEuroAmount(raw){
 async function submitToSheets(payload){
   const res = await fetch(SCRIPT_URL, {
     method: "POST",
-    headers: { "Content-Type":"application/json" },
+    headers: { "Content-Type":"text/plain;charset=utf-8" },
     body: JSON.stringify(payload)
   });
-  return res.json().catch(() => ({ ok:false, error:"Réponse invalide" }));
+
+  const txt = await res.text();
+  try { return JSON.parse(txt); }
+  catch { return { ok:false, error:"Réponse non JSON", raw: txt }; }
 }
+
 
 function showMsg(type, text){
   const msg = $("msg");
@@ -421,6 +425,7 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 </body>
 </html>
+
 
 
 
